@@ -1,0 +1,4 @@
+.coverage
+app.db
+__pycache__
+exam_audit
