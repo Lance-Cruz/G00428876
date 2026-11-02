@@ -49,3 +49,18 @@ def get_loan(id: int, db: Session = Depends(get_db)):
             detail="Loan not found"
         )
     return db_loan
+
+@app.delete(
+    "/api/loan/{id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def delete_loan(id: int, db: Session = Depends(get_db)):
+    db_loan = db.get(ClientDB, id)
+    if db_loan is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Loan not found"
+        )
+    db.delete(db_loan)
+    db.commit()
+    return db_loan

@@ -29,3 +29,13 @@ def test_create_client_invalid(client):
     response = client.post("/api/loans", json=client_payload(equipment_id=-1))
 
     assert response.status_code == 422
+
+def test_delete_client(client):
+    response = client.post("/api/loans", json=client_payload())
+    assert response.status_code == 201
+
+    delete = client.delete("/api/loan/1")
+    assert delete.status_code == 204
+
+    retrieve = client.get("/api/loan/1")
+    assert retrieve.status_code == 404
