@@ -16,7 +16,7 @@ def health():
     return{"status": "ok"}
 
 @app.post(
-    "/api/loans",
+    "/loans",
     response_model=ClientRead,
     status_code=status.HTTP_201_CREATED,
 )
@@ -38,7 +38,7 @@ def add_loan(
     return db_loan
 
 @app.get(
-    "/api/loan/{id}",
+    "/loans/{id}",
     response_model=ClientRead,
 )
 def get_loan(id: int, db: Session = Depends(get_db)):
@@ -51,7 +51,7 @@ def get_loan(id: int, db: Session = Depends(get_db)):
     return db_loan
 
 @app.delete(
-    "/api/loan/{id}",
+    "/loans/{id}",
     status_code=status.HTTP_204_NO_CONTENT,
 )
 def delete_loan(id: int, db: Session = Depends(get_db)):

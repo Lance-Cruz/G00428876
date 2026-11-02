@@ -16,7 +16,7 @@ def client_payload(
     }
 
 def test_create_client(client):
-    response = client.post("/api/loans", json=client_payload())
+    response = client.post("/loans", json=client_payload())
 
     assert response.status_code == 201
     assert response.json()["equipment_id"] == 1
@@ -26,16 +26,16 @@ def test_create_client(client):
     assert response.json()["status"] == "PENDING"
 
 def test_create_client_invalid(client):
-    response = client.post("/api/loans", json=client_payload(equipment_id=-1))
+    response = client.post("/loans", json=client_payload(equipment_id=-1))
 
     assert response.status_code == 422
 
 def test_delete_client(client):
-    response = client.post("/api/loans", json=client_payload())
+    response = client.post("/loans", json=client_payload())
     assert response.status_code == 201
 
-    delete = client.delete("/api/loan/1")
+    delete = client.delete("/loans/1")
     assert delete.status_code == 204
 
-    retrieve = client.get("/api/loan/1")
+    retrieve = client.get("/loans/1")
     assert retrieve.status_code == 404
